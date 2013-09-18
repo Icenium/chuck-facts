@@ -1,6 +1,6 @@
 ﻿(function (global) {
     var application,
-        api = "http://localhost:52787/";
+        api = "http://chuckfacts.azurewebsites.net/";
 
     global.app = {};
 
@@ -73,8 +73,15 @@
 
     }());
 
+    global.app.share = function () {
+
+        var joke = global.app.cleanModel.viewModel.get("joke");
+        global.plugins.social.share(joke, null, null);
+
+    }
+
     document.addEventListener("deviceready", function () {
-        application = new kendo.mobile.Application(document.body, { transition: "slide", skin: "flat" });
+        application = new kendo.mobile.Application(document.body, { transition: "slide", skin: "ios7" });
     }, false);
 
 })(window);
