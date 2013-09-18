@@ -1,0 +1,36 @@
+.joke {
+    margin: 10px;
+}
+
+/* Custom Icons */
+
+.fontawesome .km-icon:after,
+.fontawesome .km-icon:before
+{
+    font: 1em/1em "FontAwesome";
+}
+
+.km-gamepad:after,
+.km-gamepad:before
+{
+    content: "\F11B";
+}
+
+.km-exclamation:after,
+.km-exclamation:before
+{
+    content: "\F12A";
+    padding-left: 10px;
+} 
+
+.km-dashboard:after,
+.km-dashboard:before
+{
+    content: "\F0E4";
+}
+
+/* End custom icons */
+
+.color-red {
+    color: red;
+}
