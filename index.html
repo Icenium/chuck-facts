@@ -3,7 +3,7 @@
     <head>
         <title>Chuck Facts</title>
         <meta charset="UTF-8" />
-        <link href="kendo/styles/kendo.mobile.flat.min.css" rel="stylesheet" />
+        <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="styles/main.css" rel="stylesheet" />
         <link href="styles/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <script src="cordova.js"></script>
@@ -26,11 +26,12 @@
             </div>	
         </div>
         
-        <div data-role="view" data-layout="main" data-init="app.cleanModel.refresh" data-model="app.cleanModel" id="clean" data-model="cleanModel">
+        <div data-role="view" data-layout="main" data-init="app.cleanModel.refresh" data-model="app.cleanModel" id="clean">
             <div data-role="header">
                 <div data-role="navbar">
                     <span>The Facts: Clean</span>
                     <a data-role="button" data-icon="refresh" data-align="right" data-click="app.cleanModel.refresh"></a>
+                    <a data-role="button" data-icon="share" data-align="left" data-click="app.share"></a>
                 </div>    
             </div>
             <div class="joke">
@@ -51,5 +52,6 @@
         <script src="kendo/js/jquery.min.js"></script>
         <script src="kendo/js/kendo.all.min.js"></script>
         <script src="js/app.js"></script>
+        <script src="social.js"></script>
     </body>
 </html>
