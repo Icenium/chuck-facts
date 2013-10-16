@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ChuckNorrisModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ChuckNorrisModelStoreContainer">
+          <EntitySet Name="Category" EntityType="ChuckNorrisModel.Store.Category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Joke" EntityType="ChuckNorrisModel.Store.Joke" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="JokeCategory" EntityType="ChuckNorrisModel.Store.JokeCategory" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_JokeCategory_Category" Association="ChuckNorrisModel.Store.FK_JokeCategory_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="JokeCategory" EntitySet="JokeCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JokeCategory_Joke" Association="ChuckNorrisModel.Store.FK_JokeCategory_Joke">
+            <End Role="Joke" EntitySet="Joke" />
+            <End Role="JokeCategory" EntitySet="JokeCategory" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Joke">
+          <Key>
+            <PropertyRef Name="JokeId" />
+          </Key>
+          <Property Name="JokeId" Type="int" Nullable="false" />
+          <Property Name="JokeText" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JokeCategory">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+            <PropertyRef Name="JokeId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="JokeId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_JokeCategory_Category">
+          <End Role="Category" Type="ChuckNorrisModel.Store.Category" Multiplicity="1" />
+          <End Role="JokeCategory" Type="ChuckNorrisModel.Store.JokeCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="JokeCategory">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JokeCategory_Joke">
+          <End Role="Joke" Type="ChuckNorrisModel.Store.Joke" Multiplicity="1" />
+          <End Role="JokeCategory" Type="ChuckNorrisModel.Store.JokeCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joke">
+              <PropertyRef Name="JokeId" />
+            </Principal>
+            <Dependent Role="JokeCategory">
+              <PropertyRef Name="JokeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChuckNorrisModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ChuckNorrisEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="ChuckNorrisModel.Category" />
+          <EntitySet Name="Jokes" EntityType="ChuckNorrisModel.Joke" />
+          <AssociationSet Name="JokeCategory" Association="ChuckNorrisModel.JokeCategory">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Joke" EntitySet="Jokes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Jokes" Relationship="ChuckNorrisModel.JokeCategory" FromRole="Category" ToRole="Joke" />
+        </EntityType>
+        <EntityType Name="Joke">
+          <Key>
+            <PropertyRef Name="JokeId" />
+          </Key>
+          <Property Name="JokeId" Type="Int32" Nullable="false" />
+          <Property Name="JokeText" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Categories" Relationship="ChuckNorrisModel.JokeCategory" FromRole="Joke" ToRole="Category" />
+        </EntityType>
+        <Association Name="JokeCategory">
+          <End Role="Category" Type="ChuckNorrisModel.Category" Multiplicity="*" />
+          <End Role="Joke" Type="ChuckNorrisModel.Joke" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ChuckNorrisModelStoreContainer" CdmEntityContainer="ChuckNorrisEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ChuckNorrisModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jokes">
+            <EntityTypeMapping TypeName="ChuckNorrisModel.Joke">
+              <MappingFragment StoreEntitySet="Joke">
+                <ScalarProperty Name="JokeId" ColumnName="JokeId" />
+                <ScalarProperty Name="JokeText" ColumnName="JokeText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="JokeCategory" TypeName="ChuckNorrisModel.JokeCategory" StoreEntitySet="JokeCategory">
+            <EndProperty Name="Category">
+              <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+            </EndProperty>
+            <EndProperty Name="Joke">
+              <ScalarProperty Name="JokeId" ColumnName="JokeId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

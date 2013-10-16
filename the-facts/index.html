@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kendo UI DataViz</title>
+    <meta charset="UTF-8" />
+
+    <link href="kendo/styles/kendo.dataviz.mobile.min.css" rel="stylesheet" />
+
+    <!--Once the final theme is chosen the redundant css reference should removed-->
+    <link href="kendo/styles/kendo.dataviz.flat.min.css" rel="stylesheet" />
+    <link href="kendo/styles/kendo.dataviz.silver.min.css" rel="stylesheet" />
+
+    <link href="styles/main.css" rel="stylesheet" />
+
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.dataviz.mobile.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- the funny jokes -->
+    <div data-role="view" id="funny" data-layout="main" data-model="app.funny.viewModel"
+         data-title="The Facts: Funny" data-init="app.funny.getRandomJoke">
+        <!-- this header overrides the header defined in the layout -->
+        <div data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+                <button data-role="button" data-align="left" data-icon="share" data-bind="click: share, visible: canShare"></button>
+                <button data-role="button" data-align="right" data-icon="refresh" data-bind="click: refresh"></button>
+            </div>
+        </div>
+        <h3 data-bind="html: joke"></h3>
+    </div>
+
+    <!-- the nerdy jokes -->
+    <div data-role="view" id="nerdy" data-layout="main" data-model="app.nerdy.viewModel" 
+        data-title="The Facts: Nerdy" data-init="app.nerdy.getRandomJoke">
+        <!-- this header overrides the header defined in the layout -->
+        <div data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+                <button data-role="button" data-align="left" data-icon="share" data-bind="click: share, visible: canShare"></button>
+                <button data-role="button" data-align="right" data-icon="refresh" data-bind="click: refresh"></button>
+            </div>
+        </div>
+        <h3 data-bind="html: joke"></h3>
+    </div>
+
+    <!-- the dashboard -->
+    <div data-role="view" id="dashboard" data-layout="main" data-init="app.dashboard.init" data-title="Dashboard">
+        <div id="chart"></div>
+    </div>
+
+    <!-- the common layout for all views -->
+    <div data-role="layout" data-id="main">
+        <!-- the footer widget pins content to the top of the screen -->
+        <div data-role="header">
+            <!-- the navbar widget creates a title bar which can also hold buttons -->
+            <div data-role="navbar">
+                <!-- the view-title widget displays the value of whatever is in the 'data-title' attribute on the current view -->
+                <span data-role="view-title"></span>
+            </div>
+        </div>
+        <!-- the footer widget pins the content to the bottom of the screen -->
+        <div data-role="footer">
+            <!-- the tabstrip widget creates the familiar mobile tabstrip -->
+            <div data-role="tabstrip">
+                <!-- each tabstrip button is an anchor. It's href attribute points
+                     to the id of the view that should be shown when that items is tapped. -->
+                <a href="funny" data-icon="funny">Funny</a>
+                <a href="nerdy" data-icon="nerdy">Nerdy</a>
+                <a href="dashboard" data-icon="dashboard">Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="view" id="offline" data-transition="overlay:up">
+        <div data-role="header" class="offline">
+            <h2>Offline</h2>
+        </div>
+        <h3>Chuck Norris doesn't need an internet connection, but you do.  Make sure you are online and then try again.</h3>
+    </div>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/social.js"></script>
+
+</body>
+</html>

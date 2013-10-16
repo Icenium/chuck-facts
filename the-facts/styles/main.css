@@ -1,0 +1,28 @@
+
+/* custom icon definitions */
+
+.km-funny:after,
+.km-funny:before
+{
+    content: "\e093";
+}
+
+.km-nerdy:after,
+.km-nerdy:before
+{
+    content: "\e094";
+}
+
+.km-dashboard:after,
+.km-dashboard:before
+{
+    content: "\e04d";
+}
+
+/* end custom icons */
+
+.offline {
+    background-color: red;
+    color: white;
+    padding: 1rem;
+}
