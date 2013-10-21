@@ -1,19 +1,21 @@
-﻿(function () {
+﻿(function (g) {
     var api = "http://facts.azurewebsites.net/api/";
 
     // create a variable on the window to hold all of our custom code
-    window.app = {};
+    g.app = {};
 
     // share function to call custom plugin
     var share = function(joke) {
-        window.plugins.social.share(joke);
+        g.plugins.social.share(joke);
     } 
 
     // get a random joke by category
-    var getRandomJoke = function (category, viewModel) {    
+    var getRandomJoke = function (category, viewModel) {
+        g.app.application.showLoading();
         $.get(api + "jokes?type=" + category, function (data) {
             // update the view model
             viewModel.set("joke", data.JokeText);
+            g.app.application.hideLoading();
         });
     };
 
@@ -39,7 +41,7 @@
                     share(this.get("joke"));
                 },
                 canShare: function () {
-                    return window.app.application.os.ios;
+                    return kendo.support.mobileOS.ios || false;
                 }
             });
 
@@ -51,12 +53,12 @@
     });
 
     // create a new funny model from the base jokeModel class
-    window.app.funny = new jokeModel("funny");
+    g.app.funny = new jokeModel("funny");
 
     // create a new nerdy model from the base jokeModel class
-    window.app.nerdy = new jokeModel("nerdy");
+    g.app.nerdy = new jokeModel("nerdy");
 
-    window.app.dashboard = (function () {
+    g.app.dashboard = (function () {
 
         var init = function () {
             $("#chart").kendoChart({
@@ -96,17 +98,30 @@
 
     }());
 
-    // create a new kendo ui mobile app using the whole page
-    window.app.application = new kendo.mobile.Application(document.body, { transition: "slide", skin: "flat" });
+    var init = function () {
+        // create a new kendo ui mobile app using the whole page
+        new kendo.mobile.Application(document.body, {
+            transition: "slide", skin: "flat", init: function () {
+                g.app.application = this;
+                getRandomJoke("funny", g.app.funny.viewModel);
+            }
+        });
+
+        navigator.splashscreen.hide();
+    }
+
+    document.addEventListener("deviceready", init, false);
 
     document.addEventListener("offline", function () {
-        window.app.application.navigate("#offline");
+        g.app.application.navigate("#offline");
     });
 
     document.addEventListener("online", function () {
-        window.app.application.navigate("#:back");
+        if (g.app.application) {
+            g.app.application.navigate("#:back");
+        }
     });
 
-}());
+}(window));
 
 
