@@ -7,7 +7,7 @@
     // share function to call custom plugin
     var share = function(joke) {
         g.plugins.social.share(joke);
-    } 
+    }         
 
     // get a random joke by category
     var getRandomJoke = function (category, viewModel) {
@@ -20,7 +20,7 @@
     };
 
     // create a base class for the nerdy and funny view
-    var jokeModel = kendo.Class.extend({
+    var JokeModel = kendo.Class.extend({
         // the init method is the constructor and is called when the object 
         // is created using the 'new' keyword
         init: function (category) {
@@ -53,10 +53,10 @@
     });
 
     // create a new funny model from the base jokeModel class
-    g.app.funny = new jokeModel("funny");
+    g.app.funny = new JokeModel("funny");
 
     // create a new nerdy model from the base jokeModel class
-    g.app.nerdy = new jokeModel("nerdy");
+    g.app.nerdy = new JokeModel("nerdy");
 
     g.app.dashboard = (function () {
 
@@ -99,12 +99,17 @@
     }());
 
     var init = function () {
+        var os = kendo.support.mobileOS;
+        var statusBarStyle = os.ios && os.flatVersion >= 700 ? "black-translucent" : "black";
+
         // create a new kendo ui mobile app using the whole page
         new kendo.mobile.Application(document.body, {
-            transition: "slide", skin: "flat", init: function () {
+            transition: "slide", init: function () {
                 g.app.application = this;
                 getRandomJoke("funny", g.app.funny.viewModel);
-            }
+            },
+            statusBarStyle: statusBarStyle,
+            skin: "flat"
         });
 
         navigator.splashscreen.hide();
