@@ -3,12 +3,12 @@
   <PropertyGroup>
     <ProjectGuid>69b8c54a-2c3e-412f-88a8-5471b35e9482</ProjectGuid>
     <ProjectTypeGuids>{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}</ProjectTypeGuids>
-    <AppIdentifier>com.telerik.thefacts</AppIdentifier>
+    <AppIdentifier>com.telerik.chuckfacts</AppIdentifier>
     <ProjectName>the-facts</ProjectName>
     <IsRunnable>true</IsRunnable>
     <FrameworkVersion>3.0.0</FrameworkVersion>
     <AndroidPermissions>android.permission.READ_PHONE_STATE;android.permission.INTERNET;android.permission.ACCESS_NETWORK_STATE</AndroidPermissions>
-    <CorePlugins>org.apache.cordova.core.device;org.apache.cordova.core.AudioHandler;org.apache.cordova.core.battery-status;org.apache.cordova.core.camera;org.apache.cordova.core.console;org.apache.cordova.core.contacts;org.apache.cordova.core.device;org.apache.cordova.core.device-motion;org.apache.cordova.core.device-orientation;org.apache.cordova.core.dialogs;org.apache.cordova.core.file;org.apache.cordova.core.file-transfer;org.apache.cordova.core.geolocation;org.apache.cordova.core.globalization;org.apache.cordova.core.inappbrowser;org.apache.cordova.core.media-capture;org.apache.cordova.core.network-information;org.apache.cordova.core.splashscreen;org.apache.cordova.core.vibration</CorePlugins>
+    <CorePlugins>com.phonegap.plugins.pushPlugin;org.apache.cordova.AudioHandler;org.apache.cordova.battery-status;org.apache.cordova.camera;org.apache.cordova.console;org.apache.cordova.contacts;org.apache.cordova.device-motion;org.apache.cordova.device-orientation;org.apache.cordova.dialogs;org.apache.cordova.file;org.apache.cordova.file-transfer;org.apache.cordova.geolocation;org.apache.cordova.globalization;org.apache.cordova.inappbrowser;org.apache.cordova.media-capture;org.apache.cordova.network-information;org.apache.cordova.splashscreen;org.apache.cordova.vibration</CorePlugins>
     <DeviceOrientations>Portrait</DeviceOrientations>
     <iOSStatusBarStyle>Default</iOSStatusBarStyle>
     <AndroidHardwareAcceleration>false</AndroidHardwareAcceleration>
@@ -16,6 +16,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <BundleVersion>1.0</BundleVersion>
     <AndroidVersionCode>1</AndroidVersionCode>
+    <iOSDisplayName>The Facts</iOSDisplayName>
+    <iOSDeviceFamily>1;2</iOSDeviceFamily>
+    <iOSBackgroundMode />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -55,6 +58,7 @@
     <Folder Include="kendo\js" />
     <Folder Include="kendo\styles\" />
     <Folder Include="kendo\styles\images\" />
+    <Folder Include="everlive\" />
     <Folder Include="Plugins\" />
     <Folder Include="Plugins\Social\" />
     <Folder Include="Plugins\Social\src\" />
@@ -93,6 +97,8 @@
     <Resource Include="App_Resources\Android\drawable-nodpi\splashscreen.9.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="everlive\everlive.all.js" />
+    <Content Include="everlive\everlive.all.min.js" />
     <Content Include="index.html" />
     <Content Include="kendo\js\jquery.min.js" />
     <Content Include="kendo\js\kendo.dataviz.mobile.min.js" />
@@ -101,8 +107,8 @@
     <Content Include="kendo\styles\kendo.dataviz.default.min.css" />
     <Content Include="kendo\styles\kendo.dataviz.flat.min.css" />
     <Content Include="kendo\styles\images\back.png" />
-    <Content Include="kendo\styles\images\KendoUI.ttf" />
-    <Content Include="kendo\styles\images\KendoUI.woff" />
+    <Content Include="kendo\styles\images\kendoui.ttf" />
+    <Content Include="kendo\styles\images\kendoui.woff" />
     <Content Include="kendo\styles\kendo.dataviz.metro.min.css" />
     <Content Include="kendo\styles\kendo.dataviz.mobile.min.css" />
     <Content Include="kendo\styles\kendo.dataviz.silver.min.css" />

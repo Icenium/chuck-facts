@@ -1,5 +1,10 @@
 ﻿(function (g) {
-    var api = "http://facts.azurewebsites.net/api/";
+    var api = "http://facts.azurewebsites.net/api/",
+        el = new Everlive({
+            apiKey: "prlnB38rYu0v65Tt",
+            scheme: "http"
+        });
+        
 
     // create a variable on the window to hold all of our custom code
     g.app = {};
@@ -99,20 +104,58 @@
     }());
 
     var init = function () {
+
         var os = kendo.support.mobileOS;
         var statusBarStyle = os.ios && os.flatVersion >= 700 ? "black-translucent" : "black";
 
         // create a new kendo ui mobile app using the whole page
         new kendo.mobile.Application(document.body, {
             transition: "slide", init: function () {
+
                 g.app.application = this;
                 getRandomJoke("funny", g.app.funny.viewModel);
+
+                navigator.splashscreen.hide();
+
             },
             statusBarStyle: statusBarStyle,
             skin: "flat"
         });
 
-        navigator.splashscreen.hide();
+        // register this app with Everlive to receive push notifications
+        var device = el.push.currentDevice();
+
+        var settings = {
+            iOS: {
+                badge: true,
+                sound: true,
+                alert: true
+            },
+            notificationCallbackIOS: function (e) {
+                alert(e);
+            },
+            notificationCallbackAndroid: function(e) {
+                alert(e);
+            }
+        };
+
+        device.enableNotifications(settings).then(
+            function () {
+                alert("notifications enabled");
+                return device.getRegistration();    
+            },
+            function(err) {
+                alert(err);
+            }
+        ).then(
+            function (e) {
+                alert(e);
+            },
+            function(err) {
+                alert(err);
+            }
+        );
+       
     }
 
     document.addEventListener("deviceready", init, false);
@@ -126,6 +169,8 @@
             g.app.application.navigate("#:back");
         }
     });
+
+    
 
 }(window));
 
